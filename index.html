@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prestige Barber — Est. 1984</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
+<style>
+
+/* ===== RESET & BASE ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --n:   #0a0a0a;
+  --n2:  #111111;
+  --n3:  #1a1a1a;
+  --r:   #c8190f;
+  --r2:  #e02515;
+  --or:  #c8a84b;
+  --or2: #e8c46a;
+  --w:   #f4e9d2;
+  --g:   #555555;
+  --g2:  #888888;
+}
+
+body {
+  background: var(--n);
+  color: var(--w);
+  font-family: 'Barlow', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ===== SCROLL WRAPPER ===== */
+#scroll-wrap {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+/* ===== SECTIONS ===== */
+.s {
+  height: 100vh;
+  min-height: 600px;
+  scroll-snap-align: start;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== NAV ===== */
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  height: 60px;
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background .3s, border-color .3s;
+}
+#nav.solid {
+  background: rgba(10,10,10,.97);
+  border-bottom: 1px solid rgba(200,168,75,.18);
+}
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--w);
+  text-decoration: none;
+  display: flex; align-items: center; gap: 10px;
+}
+.logo-est {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: normal; font-size: 8px; font-weight: 700;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: var(--r); line-height: 1.4;
+}
+.nav-links { display: flex; gap: 28px; }
+.nav-links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(244,233,210,.32);
+  text-decoration: none; transition: color .2s;
+}
+.nav-links a:hover { color: var(--r); }
+.nav-cta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 900;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--n); background: var(--r);
+  padding: 9px 22px;
+  text-decoration: none; display: inline-block;
+  transition: background .2s;
+}
+.nav-cta:hover { background: var(--r2); }
+
+/* ===== BOUTONS ===== */
+.btn-r {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 30px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 900;
+  letter-spacing: .18em; text-transform: uppercase;
+  text-decoration: none; cursor: pointer;
+  border: 2px solid var(--r); color: var(--r);
+  background: transparent;
+  transition: all .22s;
+  box-shadow: 0 0 12px rgba(200,25,15,.15);
+}
+.btn-r:hover { background: var(--r); color: var(--n); box-shadow: 0 0 22px rgba(200,25,15,.4); }
+
+.btn-or {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 28px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 900;
+  letter-spacing: .16em; text-transform: uppercase;
+  text-decoration: none; cursor: pointer;
+  background: linear-gradient(135deg, #c8a84b, #e8c46a, #c8a84b);
+  color: var(--n); border: none;
+  transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 4px 18px rgba(200,168,75,.28);
+}
+.btn-or:hover { transform: translateY(-2px); box-shadow: 0 7px 26px rgba(200,168,75,.42); }
+
+/* ===== S1 HERO ===== */
+#s1 { justify-content: flex-end; background: var(--n); }
+
+.hero-bg {
+  position: absolute; inset: 0;
+}
+.hero-bg video {
+  width: 100%; height: 100%;
+  object-fit: cover; opacity: .5;
+  display: block;
+}
+.hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,10,10,.85) 0%, rgba(10,10,10,.1) 30%, transparent 60%);
+}
+
+/* barberpole */
+.pole {
+  position: absolute; left: 5%; top: 50%;
+  transform: translateY(-50%);
+  width: 14px; height: 190px;
+  overflow: hidden; border-radius: 7px;
+  border: 1px solid rgba(255,255,255,.1);
+  z-index: 2;
+  box-shadow: 0 0 14px rgba(200,25,15,.2);
+}
+.pole-inner {
+  width: 100%; height: 400%;
+  background: repeating-linear-gradient(
+    -45deg,
+    #aa1020 0, #aa1020 9px,
+    #f0e8d8 9px, #f0e8d8 18px,
+    #0a3080 18px, #0a3080 27px,
+    #f0e8d8 27px, #f0e8d8 36px
+  );
+  animation: pole 3s linear infinite;
+}
+@keyframes pole { to { transform: translateY(-25%); } }
+
+/* enseigne néon */
+.neon {
+  position: absolute; top: 11%; right: 6%; z-index: 2;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(15px, 2.4vw, 28px);
+  color: var(--r);
+  text-shadow: 0 0 6px var(--r), 0 0 20px var(--r), 0 0 50px rgba(200,25,15,.3);
+  animation: flicker 8s infinite;
+  line-height: 1.35;
+}
+.neon-sub {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: normal; font-size: clamp(8px,1.1vw,12px);
+  font-weight: 700; letter-spacing: .38em;
+  text-transform: uppercase;
+  color: rgba(244,233,210,.45); text-shadow: none;
+  margin-top: 4px;
+}
+@keyframes flicker {
+  0%,18%,20%,55%,57%,100% { opacity: 1; }
+  19%,56% { opacity: .65; }
+}
+
+.hero-copy {
+  position: relative; z-index: 2;
+  padding: 0 6% 60px 10%; width: 100%;
+}
+
+.hero-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .44em; text-transform: uppercase;
+  color: var(--r);
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 16px;
+  animation: fadeUp .7s .3s both;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: ''; display: block;
+  width: 26px; height: 1px; background: var(--r);
+}
+
+.hero-h {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(62px, 12vw, 172px);
+  line-height: .83;
+  margin-bottom: 22px;
+  animation: fadeUp .8s .5s both;
+}
+.hero-h .italic { font-style: italic; color: transparent; -webkit-text-stroke: 1.5px var(--or); display: block; font-size: .76em; }
+.hero-h .solid { color: var(--w); display: block; font-style: normal; }
+
+.hero-sub {
+  font-size: 14px; font-weight: 300;
+  color: rgba(244,233,210,.42); line-height: 1.8;
+  max-width: 320px; margin-bottom: 30px;
+  animation: fadeUp .7s .9s both;
+}
+.hero-actions {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  animation: fadeUp .7s 1.1s both;
+}
+.hero-stats {
+  display: flex; margin-top: 38px; padding-top: 26px;
+  border-top: 1px solid rgba(200,168,75,.14);
+  animation: fadeUp .7s 1.3s both;
+}
+.hst { padding: 0 26px 0 0; margin-right: 26px; border-right: 1px solid rgba(200,168,75,.1); }
+.hst:last-child { border: none; margin: 0; padding: 0; }
+.hst-v { font-family: 'Playfair Display', serif; font-size: 33px; font-weight: 900; color: var(--or); line-height: 1; }
+.hst-l { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(244,233,210,.26); margin-top: 4px; }
+
+.scroll-hint {
+  position: absolute; bottom: 26px; right: 6%; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 9px;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: rgba(244,233,210,.18);
+  animation: fadeUp .7s 1.6s both;
+}
+.scroll-line { width: 1px; height: 42px; background: linear-gradient(to bottom, transparent, var(--r)); opacity: .4; animation: breathe 2.5s infinite; }
+@keyframes breathe { 0%,100%{opacity:.4} 50%{opacity:.1} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+
+/* ===== S2 BRIQUE ===== */
+#s2 { justify-content: center; }
+
+#s2 .brick-photo {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80');
+  background-size: cover;
+  background-position: center;
+}
+#s2 .brick-overlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.54);
+}
+
+/* TICKER */
+.ticker {
+  position: absolute; left: 0; right: 0;
+  overflow: hidden; z-index: 5;
+}
+.ticker.top { top: 0; background: var(--r); padding: 11px 0; }
+.ticker.bot { bottom: 0; background: var(--r); padding: 11px 0; }
+.ticker-track {
+  display: flex; white-space: nowrap;
+  animation: tick-scroll 18s linear infinite;
+}
+.ticker-track.rev { animation-direction: reverse; animation-duration: 14s; }
+@keyframes tick-scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.tick-item {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 0 22px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 900;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--n);
+}
+.tick-sep { font-size: 9px; opacity: .5; }
+
+/* Contenu sur le mur */
+.brick-wrap {
+  position: relative; z-index: 3;
+  padding: 0 6%;
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 40px;
+}
+
+.vibe-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .4em; text-transform: uppercase;
+  color: var(--r);
+  text-shadow: 0 0 8px rgba(200,25,15,.45);
+  margin-bottom: 16px;
+}
+.vibe-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900; font-style: italic;
+  font-size: clamp(42px, 7vw, 106px);
+  line-height: .88; color: var(--w);
+  margin-bottom: 26px;
+  text-shadow: 2px 2px 12px rgba(0,0,0,.8);
+}
+.vibe-title em {
+  font-style: normal; color: var(--r);
+  text-shadow: 0 0 22px rgba(200,25,15,.5), 2px 2px 10px rgba(0,0,0,.7);
+}
+.pills { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill {
+  border: 1px solid rgba(200,168,75,.45); color: var(--or);
+  padding: 9px 16px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  background: rgba(0,0,0,.42); backdrop-filter: blur(4px);
+}
+
+/* ===== TAGS GRAFFITI SVG ===== */
+.graffiti {
+  flex-shrink: 0;
+  width: clamp(260px, 36vw, 500px);
+  height: clamp(210px, 33vw, 360px);
+  position: relative;
+}
+.graffiti svg {
+  width: 100%; height: 100%;
+  overflow: visible;
+}
+
+/* ===== S3 ÉQUIPE ===== */
+#s3 { background: var(--n); }
+#s3::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 50% at 50% 100%, rgba(200,25,15,.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.team-hdr {
+  padding: 70px 6% 20px;
+  display: flex; align-items: flex-end;
+  justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  border-bottom: 1px solid rgba(200,168,75,.1);
+  flex-shrink: 0; position: relative; z-index: 1;
+}
+.sec-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .4em; text-transform: uppercase;
+  color: var(--r); margin-bottom: 8px;
+}
+.sec-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900; font-size: clamp(38px, 6vw, 80px);
+  line-height: .88; color: var(--w);
+}
+.sec-title span { color: var(--or); font-style: italic; }
+
+.team-grid {
+  flex: 1; display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px; overflow: hidden;
+  background: rgba(200,168,75,.07);
+  position: relative; z-index: 1;
+  min-height: 0;
+}
+.bcard {
+  position: relative; overflow: hidden; cursor: pointer;
+  background: var(--n2);
+}
+.bcard img {
+  width: 100%; height: 100%; display: block;
+  object-fit: cover; object-position: top;
+  filter: brightness(.5) saturate(.55);
+  transition: filter .5s, transform .5s;
+}
+.bcard:hover img { filter: brightness(.78) saturate(.9); transform: scale(1.05); }
+.bcard::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(200,168,75,.35) 0%, transparent 50%);
+  opacity: 0; transition: opacity .3s; z-index: 1;
+}
+.bcard:hover::before { opacity: 1; }
+.bcard::after {
+  content: ''; position: absolute; inset: 0;
+  border: 2px solid transparent; transition: border-color .3s; z-index: 2;
+}
+.bcard:hover::after { border-color: var(--or); }
+
+.bcard-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 20px 14px 14px;
+  background: linear-gradient(to top, rgba(10,10,10,.98) 0%, rgba(10,10,10,.2) 72%, transparent 100%);
+  z-index: 3;
+}
+.bcard-name { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; font-style: italic; color: var(--w); margin-bottom: 2px; }
+.bcard-role { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--or); margin-bottom: 8px; }
+.bcard-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 10px; }
+.bcard-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 8px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; border: 1px solid rgba(200,25,15,.3); color: rgba(200,25,15,.8); padding: 2px 6px; }
+.bcard-btn {
+  width: 100%; background: transparent; border: 1px solid var(--or);
+  color: var(--or); padding: 7px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase;
+  cursor: pointer; opacity: 0; transform: translateY(6px);
+  transition: all .22s;
+}
+.bcard:hover .bcard-btn { opacity: 1; transform: translateY(0); }
+.bcard-btn:hover { background: var(--or); color: var(--n); }
+
+/* ===== S4 TARIFS + RDV ===== */
+#s4 { background: var(--n2); justify-content: center; padding: 70px 6%; }
+#s4::before {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    -58deg, transparent, transparent 58px,
+    rgba(200,25,15,.016) 58px, rgba(200,25,15,.016) 60px
+  );
+  pointer-events: none;
+}
+
+.s4-layout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 50px; align-items: start;
+  position: relative; z-index: 1;
+}
+
+/* Tarifs */
+.tarifs { display: flex; flex-direction: column; gap: 1px; }
+.tarif {
+  display: grid; grid-template-columns: 1fr auto auto;
+  align-items: center; gap: 14px;
+  padding: 15px 18px;
+  background: rgba(255,255,255,.02);
+  border-left: 3px solid transparent;
+  cursor: pointer; transition: all .18s;
+}
+.tarif:hover, .tarif.star {
+  border-color: var(--r); background: rgba(200,25,15,.04);
+}
+.tarif-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 16px; letter-spacing: .06em; text-transform: uppercase; color: var(--w); }
+.tarif-desc { font-size: 11px; color: var(--g); margin-top: 3px; }
+.tarif-time { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--g); text-align: right; white-space: nowrap; }
+.tarif-price { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 22px; color: var(--or); text-align: right; flex-shrink: 0; }
+
+/* RDV */
+.rdv-box {
+  background: var(--n);
+  border: 1px solid rgba(200,168,75,.13);
+  border-top: 3px solid var(--or);
+  padding: 22px;
+  position: sticky; top: 72px;
+  max-height: calc(100vh - 86px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(200,168,75,.14) transparent;
+  box-shadow: 0 18px 55px rgba(0,0,0,.6);
+}
+.rdv-box::before {
+  content: 'RÉSERVATION';
+  position: absolute; top: -2px; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; font-weight: 900;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: var(--or); background: var(--n); padding: 0 12px;
+}
+.rdv-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 21px; font-weight: 700; font-style: italic;
+  color: var(--w); text-align: center;
+  margin-bottom: 16px; padding-bottom: 14px;
+  border-bottom: 1px solid rgba(200,168,75,.09);
+}
+
+/* Progress */
+.rdv-bar { display: flex; gap: 3px; margin-bottom: 18px; }
+.rdv-bar-step { flex: 1; height: 2px; background: rgba(200,168,75,.1); transition: background .3s; }
+.rdv-bar-step.done { background: var(--or); }
+
+/* Labels étapes */
+.step-lbl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: var(--or); margin-bottom: 9px; margin-top: 14px;
+}
+
+/* Grilles */
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 5px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 5px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 5px; }
+
+.chip {
+  background: rgba(255,255,255,.02);
+  border: 1.5px solid rgba(200,168,75,.1);
+  padding: 10px 6px; text-align: center;
+  cursor: pointer; transition: all .18s;
+}
+.chip:hover, .chip.on {
+  border-color: var(--or); background: rgba(200,168,75,.07);
+}
+.chip-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 900;
+  text-transform: uppercase; letter-spacing: .06em; color: var(--w);
+}
+.chip.on .chip-name { color: var(--or); }
+.chip-sub { font-size: 9px; color: var(--g); margin-top: 2px; }
+
+.srv-chip {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 12px;
+  background: rgba(255,255,255,.02);
+  border: 1.5px solid rgba(200,168,75,.1);
+  cursor: pointer; transition: all .18s;
+}
+.srv-chip:hover, .srv-chip.on {
+  border-color: var(--or); background: rgba(200,168,75,.07);
+}
+.srv-chip-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em; color: var(--w);
+}
+.srv-chip.on .srv-chip-name { color: var(--or); }
+.srv-chip-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700; color: var(--or);
+}
+
+.day-chip {
+  background: rgba(255,255,255,.02);
+  border: 1.5px solid rgba(200,168,75,.1);
+  padding: 9px 4px; text-align: center;
+  cursor: pointer; transition: all .18s;
+}
+.day-chip:hover, .day-chip.on { border-color: var(--or); background: rgba(200,168,75,.07); }
+.day-num { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; color: var(--w); line-height: 1; }
+.day-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 8px; letter-spacing: .1em; text-transform: uppercase; color: var(--g); margin-top: 2px; }
+.day-chip.on .day-num { color: var(--or); }
+
+.hour-chip {
+  background: rgba(255,255,255,.02);
+  border: 1.5px solid rgba(200,168,75,.1);
+  padding: 8px 4px; text-align: center;
+  cursor: pointer;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 700; color: var(--w);
+  transition: all .18s;
+}
+.hour-chip:hover, .hour-chip.on { border-color: var(--or); color: var(--or); background: rgba(200,168,75,.07); }
+.hour-chip.taken { opacity: .18; pointer-events: none; text-decoration: line-through; }
+
+/* Inputs */
+.f-input {
+  width: 100%; display: block;
+  background: rgba(255,255,255,.03);
+  border: 1.5px solid rgba(200,168,75,.1);
+  border-bottom: 2px solid rgba(200,168,75,.22);
+  color: var(--w); padding: 11px 13px;
+  font-family: 'Barlow', sans-serif; font-size: 13px;
+  outline: none; transition: border-color .2s;
+  margin-bottom: 7px;
+}
+.f-input:focus { border-color: var(--or); }
+.f-input::placeholder { color: var(--g); }
+
+/* Récap */
+.recap {
+  background: rgba(200,168,75,.05);
+  border-left: 2px solid var(--or);
+  padding: 12px 13px; margin-bottom: 12px;
+  display: none;
+}
+.recap.show { display: block; }
+.recap-line {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: .05em;
+  color: var(--or); margin-bottom: 3px;
+}
+.recap-line b { color: var(--w); font-weight: 400; }
+
+/* Bouton WA */
+.btn-wa {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 14px;
+  background: #25D366; color: #000;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase;
+  border: none; cursor: pointer; transition: background .2s, transform .15s;
+}
+.btn-wa:hover { background: #1da855; transform: translateY(-1px); }
+.rdv-note {
+  text-align: center; font-size: 10px; color: var(--g);
+  margin-top: 7px;
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: .08em; text-transform: uppercase;
+}
+
+/* ===== S5 AVIS ===== */
+#s5 {
+  background: var(--w); color: var(--n);
+  justify-content: center; padding: 70px 6%;
+}
+#s5::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(45deg, rgba(200,168,75,.05) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(200,168,75,.05) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(200,168,75,.05) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(200,168,75,.05) 75%);
+  background-size: 20px 20px; pointer-events: none;
+}
+
+.avis-hdr {
+  display: flex; align-items: flex-end;
+  justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  margin-bottom: 34px; position: relative; z-index: 1;
+}
+.avis-title { font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(50px, 8vw, 96px); line-height: .88; }
+.avis-title span { color: var(--r); font-style: italic; }
+.avis-score { display: flex; align-items: center; gap: 13px; }
+.score-big { font-family: 'Playfair Display', serif; font-size: 68px; font-weight: 900; color: var(--n); line-height: 1; }
+.score-stars { color: var(--or); font-size: 17px; letter-spacing: 2px; margin-bottom: 3px; }
+.score-cnt { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: rgba(0,0,0,.4); }
+
+.reviews { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; position: relative; z-index: 1; }
+.review {
+  background: rgba(0,0,0,.04); padding: 24px;
+  border-top: 3px solid rgba(200,168,75,.18);
+  transition: border-color .2s; position: relative;
+}
+.review:nth-child(2) { background: var(--n); color: var(--w); }
+.review:hover { border-color: var(--or); }
+.rev-stars { font-size: 13px; letter-spacing: 2px; color: var(--or); margin-bottom: 11px; }
+.rev-text { font-family: 'Playfair Display', serif; font-size: 13px; font-style: italic; line-height: 1.75; margin-bottom: 14px; color: rgba(0,0,0,.7); }
+.review:nth-child(2) .rev-text { color: rgba(244,233,210,.7); }
+.rev-auth { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; opacity: .4; }
+.rev-by { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--or); margin-top: 2px; }
+.review::before { content: '\201C'; position: absolute; top: 10px; right: 16px; font-family: 'Playfair Display', serif; font-style: italic; font-size: 76px; color: rgba(200,168,75,.07); line-height: 1; }
+
+/* ===== S6 FOOTER ===== */
+#s6 {
+  background: var(--n);
+  justify-content: space-between;
+  padding: 70px 6% 34px;
+}
+#s6::before {
+  content: ''; position: absolute;
+  bottom: -15%; left: 50%; transform: translateX(-50%);
+  width: 80%; height: 40%;
+  background: radial-gradient(ellipse, rgba(200,25,15,.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+.ft-bg {
+  position: absolute; bottom: -35px; left: -3%;
+  font-family: 'Playfair Display', serif;
+  font-weight: 900; font-style: italic;
+  font-size: clamp(80px, 18vw, 240px);
+  color: transparent; -webkit-text-stroke: 1px rgba(200,25,15,.06);
+  pointer-events: none; user-select: none; line-height: 1;
+}
+.ft-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(46px, 9vw, 116px);
+  font-weight: 900; font-style: italic;
+  line-height: .88; color: var(--w);
+  text-decoration: none; display: block; margin-bottom: 7px;
+}
+.ft-logo span { color: var(--r); }
+.ft-est {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .4em; text-transform: uppercase;
+  color: var(--or); margin-bottom: 34px;
+  display: flex; align-items: center; gap: 12px;
+}
+.ft-est::after { content: ''; flex: 1; height: 1px; background: rgba(200,168,75,.16); max-width: 200px; }
+.ft-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 34px; position: relative; z-index: 1; }
+.ft-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--r); margin-bottom: 11px; }
+.ft-item { font-size: 13px; color: rgba(244,233,210,.33); line-height: 1.9; }
+.ft-item strong { color: var(--w); font-weight: 400; }
+.ft-bottom {
+  display: flex; justify-content: space-between;
+  padding-top: 22px; border-top: 1px solid rgba(200,168,75,.07);
+  position: relative; z-index: 1; flex-wrap: wrap; gap: 8px;
+}
+.ft-copy { font-size: 10px; color: rgba(244,233,210,.12); font-family: 'Barlow Condensed', sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+
+/* ===== NOTIF ===== */
+.notif {
+  position: fixed; bottom: 22px; left: 22px;
+  background: var(--n2);
+  border: 1px solid rgba(200,168,75,.2);
+  border-left: 4px solid var(--or);
+  max-width: 278px; width: calc(100% - 44px);
+  z-index: 300;
+  transform: translateX(-130%);
+  transition: transform .5s cubic-bezier(.34,1.56,.64,1);
+  pointer-events: none;
+  box-shadow: 0 8px 28px rgba(0,0,0,.7);
+}
+.notif.show { transform: translateX(0); }
+.notif-top { background: rgba(200,168,75,.07); padding: 7px 13px; display: flex; align-items: center; gap: 7px; }
+.notif-dot { width: 6px; height: 6px; background: var(--or); border-radius: 50%; animation: breathe 2s infinite; flex-shrink: 0; }
+.notif-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--or); }
+.notif-body { padding: 11px 13px; }
+.notif-name { font-family: 'Playfair Display', serif; font-size: 15px; font-style: italic; color: var(--w); margin-bottom: 2px; }
+.notif-text { font-size: 12px; color: rgba(244,233,210,.46); line-height: 1.4; }
+.notif-text strong { color: var(--or); }
+.notif-time { font-size: 10px; color: var(--g); margin-top: 4px; font-family: 'Barlow Condensed', sans-serif; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 960px) {
+  #scroll-wrap { scroll-snap-type: none; }
+  .s { height: auto; min-height: 100svh; scroll-snap-align: none; }
+  .nav-links { display: none; }
+  .team-grid { grid-template-columns: repeat(3,1fr); }
+  .s4-layout { grid-template-columns: 1fr; gap: 28px; }
+  .rdv-box { position: static; max-height: none; }
+  .reviews { grid-template-columns: 1fr; }
+  .ft-grid { grid-template-columns: 1fr 1fr; }
+  .hero-stats { display: none; }
+  .hero-copy { padding: 0 5% 58px 8%; }
+  .pole { display: none; }
+  .brick-wrap { flex-direction: column; gap: 20px; }
+  .graffiti { width: 100%; height: 185px; }
+}
+@media (max-width: 600px) {
+  #nav { padding: 0 4%; height: 55px; }
+  .logo { font-size: 18px; }
+  .nav-cta { padding: 7px 12px; font-size: 11px; }
+  .hero-h { font-size: clamp(50px,17vw,80px); }
+  .hero-actions { flex-direction: column; gap: 10px; }
+  .btn-r, .btn-or { width: 100%; justify-content: center; }
+  .team-grid { grid-template-columns: repeat(2,1fr); }
+  #s4 { padding: 55px 4%; }
+  .grid-3 { grid-template-columns: repeat(2,1fr); }
+  .grid-4, .day-grid { grid-template-columns: repeat(3,1fr); }
+  #s5 { padding: 55px 4%; }
+  .ft-grid { grid-template-columns: 1fr; }
+  #s6 { padding: 55px 4% 26px; }
+  .ft-bottom { flex-direction: column; gap: 7px; text-align: center; }
+  .notif { left: 8px; right: 8px; max-width: none; width: auto; }
+  .neon { display: none; }
+}
+@media (max-width: 380px) { .nav-cta { display: none; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#s1" class="logo" onclick="scrollTo('s1')">
+    <span class="logo-est">✦ Est.<br>1984</span>
+    Prestige Barber
+  </a>
+  <div class="nav-links">
+    <a href="#s3" onclick="scrollTo('s3');return false">L'Équipe</a>
+    <a href="#s4" onclick="scrollTo('s4');return false">Tarifs</a>
+    <a href="#s5" onclick="scrollTo('s5');return false">Avis</a>
+  </div>
+  <a href="#s4" class="nav-cta" onclick="scrollTo('s4');return false">Prendre RDV</a>
+</nav>
+
+<!-- SCROLL WRAPPER -->
+<div id="scroll-wrap">
+
+<!-- S1 HERO -->
+<section class="s" id="s1">
+  <div class="hero-bg">
+    <video id="vid" autoplay muted playsinline preload="auto" webkit-playsinline>
+      <source src="https://res.cloudinary.com/dzh5vllay/video/upload/q_auto,w_720/v1776069098/001_A_man_with_dark_curly_hair_and_a_beard_is_shown_CILfgllK_rr7kz0.mp4" type="video/mp4" media="(max-width:600px)">
+      <source src="https://res.cloudinary.com/dzh5vllay/video/upload/v1776069098/001_A_man_with_dark_curly_hair_and_a_beard_is_shown_CILfgllK_rr7kz0.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="neon">Open<span class="neon-sub">Walk-ins Welcome</span></div>
+  <div class="pole"><div class="pole-inner"></div></div>
+  <div class="hero-copy">
+    <div class="hero-eyebrow">Established 1984 — New York Style</div>
+    <h1 class="hero-h">
+      <span class="italic">Prestige</span>
+      <span class="solid">Barber</span>
+    </h1>
+    <p class="hero-sub">Cinq artistes. Un seul standard. La coupe parfaite — comme à New York, au cœur de ton quartier.</p>
+    <div class="hero-actions">
+      <a href="#s4" class="btn-r" onclick="scrollTo('s4');return false">✦ Prendre RDV</a>
+      <a href="#s3" class="btn-or" onclick="scrollTo('s3');return false">Voir l'équipe</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hst"><div class="hst-v">5</div><div class="hst-l">Artistes</div></div>
+      <div class="hst"><div class="hst-v">4.9★</div><div class="hst-l">Google</div></div>
+      <div class="hst"><div class="hst-v">40+</div><div class="hst-l">Ans d'art</div></div>
+      <div class="hst"><div class="hst-v">500+</div><div class="hst-l">Clients</div></div>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- S2 BRIQUE -->
+<section class="s" id="s2">
+  <div class="brick-photo"></div>
+  <div class="brick-overlay"></div>
+
+  <div class="ticker top">
+    <div class="ticker-track">
+      <span class="tick-item">Fresh Cuts <span class="tick-sep">◆</span></span><span class="tick-item">Skin Fade <span class="tick-sep">◆</span></span><span class="tick-item">Premium Service <span class="tick-sep">◆</span></span><span class="tick-item">Old School <span class="tick-sep">◆</span></span><span class="tick-item">New York Style <span class="tick-sep">◆</span></span><span class="tick-item">Est. 1984 <span class="tick-sep">◆</span></span><span class="tick-item">Fresh Cuts <span class="tick-sep">◆</span></span><span class="tick-item">Skin Fade <span class="tick-sep">◆</span></span><span class="tick-item">Premium Service <span class="tick-sep">◆</span></span><span class="tick-item">Old School <span class="tick-sep">◆</span></span><span class="tick-item">New York Style <span class="tick-sep">◆</span></span><span class="tick-item">Est. 1984 <span class="tick-sep">◆</span></span>
+    </div>
+  </div>
+
+  <div class="brick-wrap">
+    <div>
+      <div class="vibe-label">Notre philosophie</div>
+      <div class="vibe-title">Ta coupe,<br>ton <em>prestige.</em></div>
+      <div class="pills">
+        <div class="pill">✦ Fades de précision</div>
+        <div class="pill">✦ Rasage au rasoir droit</div>
+        <div class="pill">✦ Techniques New York</div>
+        <div class="pill">✦ Sur rendez-vous</div>
+        <div class="pill">✦ Ambiance old school</div>
+      </div>
+    </div>
+
+    <!-- TAGS GRAFFITI EN SVG -->
+    <div class="graffiti">
+      <svg viewBox="0 0 500 360" xmlns="http://www.w3.org/2000/svg">
+        <!-- Tag FRESH — wildstyle outline rouge -->
+        <text x="10" y="105"
+          font-family="'Barlow Condensed', sans-serif"
+          font-weight="900"
+          font-size="108"
+          letter-spacing="-3"
+          fill="none"
+          stroke="#c8190f"
+          stroke-width="2.5"
+          paint-order="stroke"
+          transform="rotate(-4, 10, 105) skewX(-4)"
+          opacity="0.92"
+          filter="url(#blur1)">FRESH</text>
+        <!-- Ombre FRESH -->
+        <text x="14" y="109"
+          font-family="'Barlow Condensed', sans-serif"
+          font-weight="900"
+          font-size="108"
+          letter-spacing="-3"
+          fill="rgba(200,25,15,0.18)"
+          transform="rotate(-4, 14, 109) skewX(-4)"
+          opacity="0.7">FRESH</text>
+
+        <!-- Tag CUTS — rempli or, style bubble -->
+        <text x="80" y="215"
+          font-family="'Barlow Condensed', sans-serif"
+          font-weight="900"
+          font-size="82"
+          letter-spacing="-1"
+          fill="#e8c46a"
+          stroke="rgba(0,0,0,0.55)"
+          stroke-width="4"
+          paint-order="stroke"
+          transform="rotate(2.5, 80, 215)"
+          opacity="0.9"
+          filter="url(#blur2)">CUTS</text>
+
+        <!-- Tag Prestige Barber — Playfair italic blanc -->
+        <text x="10" y="275"
+          font-family="'Playfair Display', Georgia, serif"
+          font-weight="900"
+          font-style="italic"
+          font-size="40"
+          fill="rgba(244,233,210,0.62)"
+          stroke="rgba(0,0,0,0.7)"
+          stroke-width="2"
+          paint-order="stroke"
+          transform="rotate(-1.5, 10, 275)"
+          letter-spacing="1">Prestige Barber</text>
+
+        <!-- Tag Since 1984 -->
+        <text x="330" y="340"
+          font-family="'Barlow Condensed', sans-serif"
+          font-weight="700"
+          font-size="18"
+          letter-spacing="4"
+          fill="rgba(200,25,15,0.65)"
+          transform="rotate(4, 330, 340)">★ Since 1984 ★</text>
+
+        <!-- Couronne -->
+        <text x="410" y="58"
+          font-size="52"
+          opacity="0.5"
+          transform="rotate(-6, 410, 58)">👑</text>
+
+        <!-- Ligne spray déco -->
+        <line x1="20" y1="130" x2="430" y2="128"
+          stroke="rgba(200,25,15,0.4)"
+          stroke-width="1.5"
+          stroke-dasharray="3,6"
+          opacity="0.5"/>
+
+        <!-- Filtres blur pour effet spray -->
+        <defs>
+          <filter id="blur1" x="-5%" y="-5%" width="110%" height="110%">
+            <feGaussianBlur stdDeviation="0.4"/>
+          </filter>
+          <filter id="blur2" x="-5%" y="-5%" width="110%" height="110%">
+            <feGaussianBlur stdDeviation="0.3"/>
+          </filter>
+        </defs>
+      </svg>
+    </div>
+  </div>
+
+  <div class="ticker bot">
+    <div class="ticker-track rev">
+      <span class="tick-item">Malik <span class="tick-sep">◆</span></span><span class="tick-item">Yanis <span class="tick-sep">◆</span></span><span class="tick-item">Jordan <span class="tick-sep">◆</span></span><span class="tick-item">Amine <span class="tick-sep">◆</span></span><span class="tick-item">Kevin <span class="tick-sep">◆</span></span><span class="tick-item">Prestige Barber <span class="tick-sep">◆</span></span><span class="tick-item">Malik <span class="tick-sep">◆</span></span><span class="tick-item">Yanis <span class="tick-sep">◆</span></span><span class="tick-item">Jordan <span class="tick-sep">◆</span></span><span class="tick-item">Amine <span class="tick-sep">◆</span></span><span class="tick-item">Kevin <span class="tick-sep">◆</span></span><span class="tick-item">Prestige Barber <span class="tick-sep">◆</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- S3 EQUIPE -->
+<section class="s" id="s3">
+  <div class="team-hdr">
+    <div>
+      <div class="sec-eyebrow">Les Artistes</div>
+      <div class="sec-title">Notre <span>Équipe</span></div>
+    </div>
+    <a href="#s4" class="btn-r" onclick="scrollTo('s4');return false">Réserver →</a>
+  </div>
+  <div class="team-grid">
+    <div class="bcard" onclick="pickBarber('Malik')">
+      <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&q=80&fit=crop&crop=top" alt="Malik" loading="lazy">
+      <div class="bcard-info">
+        <div class="bcard-name">Malik</div>
+        <div class="bcard-role">Head Barber</div>
+        <div class="bcard-tags"><span class="bcard-tag">Skin Fade</span><span class="bcard-tag">Design</span></div>
+        <button class="bcard-btn" onclick="event.stopPropagation();pickBarber('Malik')">Réserver</button>
+      </div>
+    </div>
+    <div class="bcard" onclick="pickBarber('Yanis')">
+      <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=400&q=80&fit=crop&crop=top" alt="Yanis" loading="lazy">
+      <div class="bcard-info">
+        <div class="bcard-name">Yanis</div>
+        <div class="bcard-role">Fade Specialist</div>
+        <div class="bcard-tags"><span class="bcard-tag">Low Fade</span><span class="bcard-tag">Barbe</span></div>
+        <button class="bcard-btn" onclick="event.stopPropagation();pickBarber('Yanis')">Réserver</button>
+      </div>
+    </div>
+    <div class="bcard" onclick="pickBarber('Jordan')">
+      <img src="https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?w=400&q=80&fit=crop&crop=top" alt="Jordan" loading="lazy">
+      <div class="bcard-info">
+        <div class="bcard-name">Jordan</div>
+        <div class="bcard-role">Style Expert</div>
+        <div class="bcard-tags"><span class="bcard-tag">Textured</span><span class="bcard-tag">Afro</span></div>
+        <button class="bcard-btn" onclick="event.stopPropagation();pickBarber('Jordan')">Réserver</button>
+      </div>
+    </div>
+    <div class="bcard" onclick="pickBarber('Amine')">
+      <img src="https://images.unsplash.com/photo-1622288432450-277d0fef5ed6?w=400&q=80&fit=crop&crop=top" alt="Amine" loading="lazy">
+      <div class="bcard-info">
+        <div class="bcard-name">Amine</div>
+        <div class="bcard-role">Beard Artist</div>
+        <div class="bcard-tags"><span class="bcard-tag">Beard</span><span class="bcard-tag">Rasage</span></div>
+        <button class="bcard-btn" onclick="event.stopPropagation();pickBarber('Amine')">Réserver</button>
+      </div>
+    </div>
+    <div class="bcard" onclick="pickBarber('Kevin')">
+      <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80&fit=crop&crop=top" alt="Kevin" loading="lazy">
+      <div class="bcard-info">
+        <div class="bcard-name">Kevin</div>
+        <div class="bcard-role">Classic Cuts</div>
+        <div class="bcard-tags"><span class="bcard-tag">Classic</span><span class="bcard-tag">Kids</span></div>
+        <button class="bcard-btn" onclick="event.stopPropagation();pickBarber('Kevin')">Réserver</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S4 TARIFS + RDV -->
+<section class="s" id="s4">
+  <div class="s4-layout">
+
+    <div>
+      <div class="sec-eyebrow" style="margin-bottom:8px">Nos Prestations</div>
+      <div class="sec-title" style="margin-bottom:22px">Les <span>Tarifs</span></div>
+      <div class="tarifs">
+        <div class="tarif star" onclick="pickService('Coupe + Fade','20')"><div><div class="tarif-name">Coupe + Fade ✦</div><div class="tarif-desc">Dégradé complet, contours précis.</div></div><div class="tarif-time">45 min</div><div class="tarif-price">20€</div></div>
+        <div class="tarif" onclick="pickService('Coupe Classique','15')"><div><div class="tarif-name">Coupe Classique</div><div class="tarif-desc">Ciseaux et tondeuse, finitions parfaites.</div></div><div class="tarif-time">30 min</div><div class="tarif-price">15€</div></div>
+        <div class="tarif" onclick="pickService('Barbe + Contours','12')"><div><div class="tarif-name">Barbe + Contours</div><div class="tarif-desc">Taille, rasage au rasoir droit.</div></div><div class="tarif-time">25 min</div><div class="tarif-price">12€</div></div>
+        <div class="tarif" onclick="pickService('Combo Coupe + Barbe','28')"><div><div class="tarif-name">Combo Coupe + Barbe</div><div class="tarif-desc">La totale en une séance.</div></div><div class="tarif-time">60 min</div><div class="tarif-price">28€</div></div>
+        <div class="tarif" onclick="pickService('Design / Motifs','10')"><div><div class="tarif-name">Design / Motifs</div><div class="tarif-desc">Lignes et motifs sur mesure.</div></div><div class="tarif-time">20 min</div><div class="tarif-price">10€</div></div>
+        <div class="tarif" onclick="pickService('Coupe Enfant','10')"><div><div class="tarif-name">Coupe Enfant</div><div class="tarif-desc">Moins de 12 ans. Patience garantie.</div></div><div class="tarif-time">20 min</div><div class="tarif-price">10€</div></div>
+      </div>
+    </div>
+
+    <div class="rdv-box">
+      <div class="rdv-title">Réserver un RDV</div>
+      <div class="rdv-bar">
+        <div class="rdv-bar-step done" id="bar1"></div>
+        <div class="rdv-bar-step" id="bar2"></div>
+        <div class="rdv-bar-step" id="bar3"></div>
+        <div class="rdv-bar-step" id="bar4"></div>
+      </div>
+
+      <div class="step-lbl">I — Ton coiffeur</div>
+      <div class="grid-3" id="barber-grid">
+        <div class="chip" data-v="Malik" onclick="selB(this)"><div class="chip-name">Malik</div><div class="chip-sub">Head Barber</div></div>
+        <div class="chip" data-v="Yanis" onclick="selB(this)"><div class="chip-name">Yanis</div><div class="chip-sub">Fade Specialist</div></div>
+        <div class="chip" data-v="Jordan" onclick="selB(this)"><div class="chip-name">Jordan</div><div class="chip-sub">Style Expert</div></div>
+        <div class="chip" data-v="Amine" onclick="selB(this)"><div class="chip-name">Amine</div><div class="chip-sub">Beard Artist</div></div>
+        <div class="chip" data-v="Kevin" onclick="selB(this)"><div class="chip-name">Kevin</div><div class="chip-sub">Classic Cuts</div></div>
+        <div class="chip" data-v="Disponible" onclick="selB(this)"><div class="chip-name">Dispo</div><div class="chip-sub">Premier dispo</div></div>
+      </div>
+
+      <div class="step-lbl">II — La prestation</div>
+      <div style="display:flex;flex-direction:column;gap:4px" id="service-grid">
+        <div class="srv-chip" data-v="Coupe + Fade" data-p="20" onclick="selS(this)"><div class="srv-chip-name">Coupe + Fade</div><div class="srv-chip-price">20€</div></div>
+        <div class="srv-chip" data-v="Coupe Classique" data-p="15" onclick="selS(this)"><div class="srv-chip-name">Coupe Classique</div><div class="srv-chip-price">15€</div></div>
+        <div class="srv-chip" data-v="Barbe + Contours" data-p="12" onclick="selS(this)"><div class="srv-chip-name">Barbe + Contours</div><div class="srv-chip-price">12€</div></div>
+        <div class="srv-chip" data-v="Combo Coupe + Barbe" data-p="28" onclick="selS(this)"><div class="srv-chip-name">Combo Coupe + Barbe</div><div class="srv-chip-price">28€</div></div>
+      </div>
+
+      <div class="step-lbl">III — Le jour</div>
+      <div class="grid-4" id="day-grid"></div>
+
+      <div id="hour-section" style="display:none">
+        <div class="step-lbl">L'heure</div>
+        <div class="grid-4" id="hour-grid"></div>
+      </div>
+
+      <div class="step-lbl">IV — Tes infos</div>
+      <input class="f-input" type="text" id="inp-name" placeholder="Ton prénom *">
+      <input class="f-input" type="tel" id="inp-tel" placeholder="Ton numéro (optionnel)">
+
+      <div class="recap" id="recap-box">
+        <div class="recap-line">Coiffeur&nbsp;: <b id="r-b">—</b></div>
+        <div class="recap-line">Prestation&nbsp;: <b id="r-s">—</b></div>
+        <div class="recap-line">Jour&nbsp;: <b id="r-d">—</b></div>
+        <div class="recap-line">Heure&nbsp;: <b id="r-t">—</b></div>
+        <div class="recap-line">Prix estimé&nbsp;: <b id="r-p">—</b></div>
+      </div>
+
+      <button class="btn-wa" onclick="sendWA()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Confirmer sur WhatsApp
+      </button>
+      <p class="rdv-note">Confirmation sous 30 min · Annulation 24h avant</p>
+    </div>
+  </div>
+</section>
+
+<!-- S5 AVIS -->
+<section class="s" id="s5">
+  <div class="avis-hdr">
+    <div class="avis-title">Ils sont<br><span>revenus.</span></div>
+    <div class="avis-score">
+      <div class="score-big">4.9</div>
+      <div>
+        <div class="score-stars">★★★★★</div>
+        <div class="score-cnt">250+ avis Google</div>
+        <a href="#" style="font-size:10px;color:var(--or);font-family:'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;display:block;margin-top:5px">⭐ Laisser un avis →</a>
+      </div>
+    </div>
+  </div>
+  <div class="reviews">
+    <div class="review"><div class="rev-stars">★★★★★</div><div class="rev-text">"Malik c'est le meilleur dans le secteur, pas de débat. Mon fade tient une semaine. Je fais 30 km juste pour lui."</div><div class="rev-auth">Karim D.</div><div class="rev-by">✦ Coiffé par Malik</div></div>
+    <div class="review"><div class="rev-stars">★★★★★</div><div class="rev-text">"L'ambiance du shop c'est une autre vibe. On se sent dans un vrai barbershop de New York. Yanis m'a retapé une coupe de malade."</div><div class="rev-auth">Mehdi S.</div><div class="rev-by">✦ Coiffé par Yanis</div></div>
+    <div class="review"><div class="rev-stars">★★★★★</div><div class="rev-text">"Amine pour la barbe c'est un artiste. Jamais eu une barbe aussi propre. Le rasage au rasoir droit, j'en reviens pas. Client à vie."</div><div class="rev-auth">Bilal T.</div><div class="rev-by">✦ Coiffé par Amine</div></div>
+  </div>
+</section>
+
+<!-- S6 FOOTER -->
+<section class="s" id="s6">
+  <div class="ft-bg">Prestige</div>
+  <div style="position:relative;z-index:1">
+    <a href="#s1" class="ft-logo" onclick="scrollTo('s1');return false"><span>Prestige</span> Barber</a>
+    <div class="ft-est">Est. 1984 — Fresh Cuts Only</div>
+    <div class="ft-grid">
+      <div>
+        <div class="ft-lbl">Contact</div>
+        <div class="ft-item">📍 <strong>Notre adresse · Votre ville</strong></div>
+        <div class="ft-item">📞 <strong>06 00 00 00 00</strong></div>
+        <div class="ft-item">🕐 <strong>Mar–Sam · 9h – 19h</strong></div>
+      </div>
+      <div>
+        <div class="ft-lbl">L'Équipe</div>
+        <div class="ft-item"><strong>Malik</strong> · Head Barber</div>
+        <div class="ft-item"><strong>Yanis</strong> · Fade Specialist</div>
+        <div class="ft-item"><strong>Jordan</strong> · Style Expert</div>
+        <div class="ft-item"><strong>Amine</strong> · Beard Artist</div>
+        <div class="ft-item"><strong>Kevin</strong> · Classic Cuts</div>
+      </div>
+      <div>
+        <div class="ft-lbl">Réserver</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+          <a href="#s4" class="btn-r" onclick="scrollTo('s4');return false" style="width:fit-content">Prendre RDV →</a>
+          <a href="#" class="btn-or" style="width:fit-content;font-size:12px;padding:10px 20px">⭐ Laisser un avis</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <span class="ft-copy">© 2025 Prestige Barber — Est. 1984 — Fresh Cuts Only</span>
+    <span class="ft-copy">fait avec 💈</span>
+  </div>
+</section>
+
+</div><!-- /scroll-wrap -->
+
+<!-- NOTIF -->
+<div class="notif" id="notif">
+  <div class="notif-top"><div class="notif-dot"></div><div class="notif-lbl">RDV confirmé</div></div>
+  <div class="notif-body">
+    <div class="notif-name" id="n-name">Karim</div>
+    <div class="notif-text" id="n-text">vient de réserver avec <strong>Malik</strong></div>
+    <div class="notif-time" id="n-time">il y a 4 min</div>
+  </div>
+</div>
+
+<script>
+// ── Scroll nav shadow ──
+var wrap = document.getElementById('scroll-wrap');
+wrap.addEventListener('scroll', function() {
+  document.getElementById('nav').classList.toggle('solid', wrap.scrollTop > 80);
+});
+
+// ── Navigation douce via scroll-wrap ──
+function scrollTo(id) {
+  var el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+// ── Vidéo : 1 tour puis arrêt sur première frame ──
+var vid = document.getElementById('vid');
+if (vid) {
+  vid.muted = true;
+  vid.setAttribute('playsinline', '');
+  vid.addEventListener('ended', function() {
+    vid.currentTime = 0;
+    vid.pause();
+  });
+  function tryPlay() { vid.play().catch(function(){}); }
+  tryPlay();
+  setTimeout(tryPlay, 600);
+  setTimeout(tryPlay, 1600);
+  document.addEventListener('touchstart', function() { tryPlay(); }, { once: true });
+  document.addEventListener('click', function() { tryPlay(); }, { once: true });
+}
+
+// ── État RDV ──
+var R = { b:'', s:'', p:'', d:'', t:'' };
+
+function updateBar() {
+  var vals = [R.b, R.s, R.d, R.t];
+  for (var i = 0; i < 4; i++) {
+    var el = document.getElementById('bar' + (i+1));
+    if (el) el.classList.toggle('done', !!vals[i]);
+  }
+}
+
+function updateRecap() {
+  var ok = R.b && R.s && R.d && R.t;
+  var box = document.getElementById('recap-box');
+  if (!box) return;
+  box.classList.toggle('show', !!ok);
+  if (ok) {
+    document.getElementById('r-b').textContent = R.b;
+    document.getElementById('r-s').textContent = R.s;
+    document.getElementById('r-d').textContent = R.d;
+    document.getElementById('r-t').textContent = R.t;
+    document.getElementById('r-p').textContent = R.p + ' €';
+  }
+  updateBar();
+}
+
+// Coiffeur
+function selB(el) {
+  var chips = document.querySelectorAll('#barber-grid .chip');
+  for (var i = 0; i < chips.length; i++) chips[i].classList.remove('on');
+  el.classList.add('on');
+  R.b = el.getAttribute('data-v');
+  updateRecap();
+}
+
+function pickBarber(name) {
+  var chips = document.querySelectorAll('#barber-grid .chip');
+  for (var i = 0; i < chips.length; i++) {
+    if (chips[i].getAttribute('data-v') === name) selB(chips[i]);
+  }
+  scrollTo('s4');
+}
+
+// Service
+function selS(el) {
+  var chips = document.querySelectorAll('#service-grid .srv-chip');
+  for (var i = 0; i < chips.length; i++) chips[i].classList.remove('on');
+  el.classList.add('on');
+  R.s = el.getAttribute('data-v');
+  R.p = el.getAttribute('data-p');
+  updateRecap();
+}
+
+function pickService(name, price) {
+  var chips = document.querySelectorAll('#service-grid .srv-chip');
+  for (var i = 0; i < chips.length; i++) {
+    if (chips[i].getAttribute('data-v') === name) selS(chips[i]);
+  }
+  scrollTo('s4');
+}
+
+// Calendrier
+(function() {
+  var grid = document.getElementById('day-grid');
+  if (!grid) return;
+  var jours = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+  var now = new Date();
+  var count = 0;
+  for (var i = 1; i <= 14 && count < 8; i++) {
+    var d = new Date(now.getTime());
+    d.setDate(now.getDate() + i);
+    if (d.getDay() === 0) continue;
+    var el = document.createElement('div');
+    el.className = 'day-chip';
+    el.setAttribute('data-date', jours[d.getDay()] + ' ' + d.getDate() + '/' + (d.getMonth()+1));
+    el.innerHTML = '<div class="day-num">' + d.getDate() + '</div><div class="day-lbl">' + jours[d.getDay()] + '</div>';
+    el.addEventListener('click', (function(elem) {
+      return function() {
+        var all = document.querySelectorAll('.day-chip');
+        for (var j = 0; j < all.length; j++) all[j].classList.remove('on');
+        elem.classList.add('on');
+        R.d = elem.getAttribute('data-date');
+        buildHours();
+        updateRecap();
+      };
+    })(el));
+    grid.appendChild(el);
+    count++;
+  }
+})();
+
+function buildHours() {
+  var grid = document.getElementById('hour-grid');
+  var sec = document.getElementById('hour-section');
+  if (!grid || !sec) return;
+  grid.innerHTML = '';
+  sec.style.display = 'block';
+  var slots = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00'];
+  var taken = ['10:00','14:30','16:00'];
+  for (var i = 0; i < slots.length; i++) {
+    var t = slots[i];
+    var el = document.createElement('div');
+    el.className = 'hour-chip' + (taken.indexOf(t) >= 0 ? ' taken' : '');
+    el.textContent = t;
+    el.setAttribute('data-t', t);
+    el.addEventListener('click', (function(elem) {
+      return function() {
+        var all = document.querySelectorAll('.hour-chip');
+        for (var j = 0; j < all.length; j++) all[j].classList.remove('on');
+        elem.classList.add('on');
+        R.t = elem.getAttribute('data-t');
+        updateRecap();
+      };
+    })(el));
+    grid.appendChild(el);
+  }
+}
+
+// Envoi WA
+function sendWA() {
+  var prenom = document.getElementById('inp-name').value.trim() || 'Client';
+  var tel = document.getElementById('inp-tel').value.trim();
+  if (!R.b || !R.s || !R.d || !R.t) {
+    alert('Merci de compléter toutes les étapes.');
+    return;
+  }
+  var msg = 'Salam, je veux prendre RDV \u2736\n\n'
+    + 'Coiffeur\u00a0: ' + R.b + '\n'
+    + 'Prestation\u00a0: ' + R.s + '\n'
+    + 'Jour\u00a0: ' + R.d + '\n'
+    + 'Heure\u00a0: ' + R.t + '\n'
+    + 'Pr\u00e9nom\u00a0: ' + prenom
+    + (tel ? '\nMon num\u00e9ro\u00a0: ' + tel : '')
+    + '\n\nMerci !';
+  window.open('https://wa.me/33600000000?text=' + encodeURIComponent(msg), '_blank');
+}
+
+// Notifications
+var notifs = [
+  { name:'Karim', text:'vient de r\u00e9server avec <strong>Malik</strong>', time:'il y a 4 min' },
+  { name:'Mehdi', text:'vient de r\u00e9server un <strong>Combo Coupe + Barbe</strong>', time:'il y a 9 min' },
+  { name:'Issa', text:'vient de r\u00e9server avec <strong>Yanis</strong>', time:'il y a 14 min' },
+  { name:'Bilal', text:'vient de r\u00e9server un <strong>Skin Fade</strong>', time:'il y a 19 min' },
+  { name:'Sofiane', text:'vient de r\u00e9server un <strong>Design Motifs</strong>', time:'il y a 24 min' }
+];
+var ni = 0;
+function showNotif() {
+  var n = notifs[ni % notifs.length];
+  document.getElementById('n-name').textContent = n.name;
+  document.getElementById('n-text').innerHTML = n.text;
+  document.getElementById('n-time').textContent = n.time;
+  var el = document.getElementById('notif');
+  el.classList.add('show');
+  setTimeout(function() { el.classList.remove('show'); }, 5000);
+  ni++;
+}
+setTimeout(function() { showNotif(); setInterval(showNotif, 12000); }, 6000);
+</script>
+</body>
+</html>
