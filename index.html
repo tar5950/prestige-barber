@@ -1148,6 +1148,7 @@ function scrollTo(id) {
 var vid = document.getElementById('vid');
 if (vid) {
   vid.muted = true;
+  vid.playbackRate = 1.2;
   vid.setAttribute('playsinline', '');
   vid.addEventListener('ended', function() {
     vid.currentTime = 0;
